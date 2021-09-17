@@ -1,32 +1,21 @@
 ---
 layout: post
-title: 第一篇博客
-subheading: A awesome static site generator.
-author: Jeffrey
-categories: jekyll
+title: 第 一 篇 博 客
+subheading: xjb打打字.
+author: Lin
+categories: 杂谈
 banner:
-  image: "/assets/images/banners/home.jpg"
-  opacity: 0.618
+  image: "/assets/images/banners/2021-09-17-2117.jpg"
+  opacity: 0.718
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
   subheading_style: "color: gold"
-tags: jekyll theme yat
+tags: 杂谈 
 sidebar: []
 ---
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
-
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
-
-## section 1
-
-Jekyll also offers powerful support for code snippets:
-
-{% highlight ruby %}
-def print_hi(name)
-puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
+  其实在研究生阶段才来正儿八经搞博客是有点怪的。我之前本科的时候在大一就跟舍友锟哥的风租了阿里的服务器，然后随便搞了个用worldpress搭的博客就放在那里了，只是做了一些图标跟壁纸还有好看的样式，什么内容都没有，就跟玩模型似的，买来拼好涂上色就放柜子里了。小服务器就这么跟了我四年，只是每个月按时发短信让我补粮，其实连粮也是学校给报销的，我只是免费获得了能跟人聊起我有一个服务器这个话题的资格而已。
+  说起来我当时其实不太明白为什么我一篇文章都写不出来。在跟我的导师张老师电话面试的时候她说可能会要求比较高，你能不能认真的花时间去学习，我说都可以（我其实是个随遇而安的人），老师就有点不高兴了哈哈哈，具体说了啥记不太清，总之就是这犊子这么没信心没决心不能要他的意思。我当时冷汗就下来了，马上就开始表忠心，然后给老师讲故事，说我本科的时候什么都学，就是个略懂家，感觉自己跟什么都不会没有区别，很不甘心，所以想在研究生阶段找到一个方向不懈努力得走下去，真正拥有能拿得出手得知识和能力，然后老师就有点要不开个盲盒反正不亏的意思让我去了。可能写不出文章也就是这个原因，什么都只懂得皮毛，没有干货也就只能倒水了，然后我也比较懒，觉得倒水还不如不写，所以直到最后按下重置服务器按钮，也没在里面留下什么东西。
+  那为啥我不再搞个服务器呢？因为觉得用免费的比较开心哈哈哈。主要还是记录一些学习过程中遇到的问题和解决方法，大体上是个云记事本。
+  好了，快十点了，该回家了。
