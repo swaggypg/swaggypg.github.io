@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>
+<h2 id="acdc数据集介绍">ACDC数据集介绍</h2>
+
+<h3 id="1简介">1.简介：</h3>
+
+<p>ACDC（Automated Cardiac Diagnosis Challenge）数据集是一个广泛用于心脏图像分割和诊断的公开数据集。通过ACDC数据集，研究人员可以开发和评估用于心脏图像分割、心脏功能分析和疾病诊断的算法和模型。这些研究有助于改进心脏疾病的诊断准确性和治疗效果，为临床实践提供更好的支持和指导。</p>
+
+<h3 id="2挑战任务">2.挑战任务：</h3>
+
+<p>（1）分割任务：比较不同方法在心脏舒张末期和收缩末期两个时间帧的心脏MRI图像上自动分割左心室、心肌、左心室的性能表现。（原文：compare the performance of automatic methods on the segmentation of the left ventricular endocardium and epicardium as the right ventricular endocardium for both end diastolic and end systolic phase instances）</p>
+
+<p>（2）分类任务：将心脏状态分为五类，量化评估不同方法识别心脏病理状态的能力，其中心脏状态包括：正常情况、伴有梗死的心力衰竭、扩张型心肌病、肥厚型心肌病和右心室异常。（原文：compare the performance of automatic methods for the classification of the examinations in five classes normal case, heart failure with infarction, dilated cardiomyopathy, hypertrophic cardiomyopathy, abnormal right ventricle)</p>
+
+<h3 id="3数据集包含信息">3.数据集包含信息：</h3>
+
+<p>（1）数据集规模： 由150个来自Dijon大学医院的不同患者的心脏检查组成。数据集根据左、右舒张期容量或射血分数、左、右室局部收缩、左室质量、心肌最大厚度等生理参数明确分为5个均匀分布的子组（4个病理性群体和1个健康主体群体），其中训练集包含100个患者，测试集包含50个患者。</p>
+
+<p>（2）患者文件夹内容： Info.cfg : 包含患者信息，数据对应心脏收缩、扩展对应帧，总帧数，病理分组。 Patient0xx_4d.nii.gz: 4d Cine-MRI，包含多个3D scan，体现完整心脏运动过程。 Patient0xx_frame01.nii.gz: ED帧的scan。 Patient0xx_frame01_gt.nii.gz: ED帧的scan的标记值。 Patient0xx_framexx.nii.gz: ES帧的scan。 Patient0xx_framexx_gt.nii.gz: ES帧的scan的标记值。</p>
+
+<p>（3）标记值信息： 对于ACDC数据集中的每个像素，标签字段图像中的数值表示该像素所在的区域。具体来说：数值为0的像素位于背景区域。数值为1的像素位于右心室（RV）腔内。数值为2的像素位于心肌区域。数值为3的像素位于左心室（LV）腔内。（原文：Ground truth label field images were created where 0, 1, 2 and 3 represent voxels located in the background, in the RV cavity, in the myocardium, and in the LV cavity.）</p>
+
+<p>（4）Info.cfg信息： ED: 表示该心脏图像序列中的心脏状态为舒张期（End Diastolic）的帧 ES: 表示该心脏图像序列中的心脏状态为收缩期（End Systolic）的帧。 Group: 表示该心脏图像序列所属的疾病分类。 Height: 表示心脏图像序列中患者的身高，单位为厘米。 NbFrame: 表示该心脏图像序列中的帧数，即包含的图像数量。 Weight: 表示心脏图像序列中患者的体重，单位为千克。</p>
+
+<p>（5）Scan特性： 数据集只提供短轴切片，切片厚度在5毫米到10毫米之间（通常为5毫米），有时会有5毫米的间隙。空间分辨率在1.34至1.68 mm²/像素之间变化。 心脏成像切片位置示意图</p>
+
+<h2 id="心脏图像分割review中心脏mri相关部分">心脏图像分割review中心脏MRI相关部分</h2>
+
+<h3 id="1简介-1">1.简介</h3>
+
+<p>论文标题为《Deep Learning for Cardiac Image Segmentation: A Review》，于2020年发表于Frontiers in Cardiovascular Medicine 期刊。论文对三种常见成像方式（MRI、CT、超声）中使用的深度学习技术进行了全面概述，涵盖了广泛的现有深度学习方法（主要是基于 CNN），这些方法旨在分割不同的心脏解剖结构（例如心脏心室、心房、血管）。此外，论文讨论了基于深度学习的心脏分割方法的未来潜力和剩余局限性。在本次阅读中，我主要阅读了MRI部分。</p>
+
+<h3 id="2心脏分割任务包含的子结构及其生理作用">2.心脏分割任务包含的子结构及其生理作用：</h3>
+
+<p>AO（主动脉）: 人体循环系统主要动脉之一 PA（肺动脉）：将贫氧血推送至肺部 PV（肺静脉）：将氧合血输送回心脏 RA（右心房）：接收来自循环系统的含有CO2的血液，输送至RV RV（右心室）：接收来自RA的血液，推送至肺动脉 LA（左心房）：接收肺静脉返回的氧合血，输送至LV LV（左心室）：接收来自LA的血液，推送至主动脉，输送全身 MYO（心肌）：心脏肌肉组织，通过收缩和舒张运动泵血 心脏结构图</p>
+
+<h3 id="3cardiac-mr-image-心脏核磁共振成像介绍">3.Cardiac MR Image 心脏核磁共振成像介绍</h3>
+
+<p>MRI技术属于非侵入性成像技术，用以可视化心脏内部与外围结构，具有无辐射性、软组织成像结果更精细；多序列成像，多图像类型，影像信息丰富等优点。心脏MRI成像常见方式有：Cine Imaging、Late Gadolinium Enhancement Imaging、Short Axis、Long Axis。目前，针对心脏分割任务展开研究的工作主要集中于心室分割，而心房分割、异常区域分割、主动脉分割、全心脏子结构分割相关工作数量较少。</p>
+
+<h3 id="4各子结构分割任务临床意义">4.各子结构分割任务临床意义：</h3>
+
+<p>（1）心室分割：帮助医生进行心脏疾病的诊断和治疗规划；心脏功能评估；对心室的定量分析，可以监测疾病的进展，评估治疗效果，并为疾病的早期诊断和预后评估提供依据；为手术导航和术中决策提供重要的信息。</p>
+
+<p>（2）心房分割：在房颤消除手术计划和术后预期中帮助评估心房解剖结构；心房分割结果可作瘢痕分割和心房纤维化定量的基础。</p>
+
+<p>（3）疤痕分割：识别心肌疤痕和心房纤维化，有助于改善心肌梗死和心房颤动的管理。</p>
+
+<p>（4）主动脉分割：从cine MRI中分割出主动脉对于准确评估主动脉的机械和血流动力学特性至关重要。</p>
+
+<p>（5）全心分割：提供准确的心脏解剖结构信息，帮助临床心脏疾病的诊断和治疗规划。</p>
+
+<h3 id="5心室分割主要方法">5.心室分割主要方法</h3>
+
+<p>（1）Vanilla* FCN-based segmentation：基础FCN及其拓展网络的应用。</p>
+
+<p>（2）Introducing spatial or temporal context：引入额外先验信息指导网络分割任务。</p>
+
+<p>（3）Applying anatomical constraints：引入解剖结构约束指导网络分割任务。</p>
+
+<p>（4）Multi-task learning：执行与主分割任务相关的辅助任务。</p>
+
+<p>（5）Multi-stage networks：将分割任务分解为多个子任务。</p>
+
+<h3 id="6心脏分割任务面临的挑战">6.心脏分割任务面临的挑战</h3>
+
+<p>（1）Scarcity of Labels：注释心脏图像非常耗时，而且通常需要大量的专业知识。</p>
+
+<p>（2）Model Generalization Across Various Imaging Modalities, Scanners, and Pathologies：成像方式、扫描仪的多样导致数据集之间存在偏差，从而使各个数据集训练出的模型不够通用化。</p>
+
+<p>（3）Lack of Model Interpretability：深度学习系统属于黑匣子，缺乏解释性。</p>
+
+<h3 id="7review中所提到论文的收集方式">7.Review中所提到论文的收集方式</h3>
+
+<p>作者在Scopus和PubMed等学术搜索引擎上进行了查询，搜索关键词包括了“convolutional”或“deep learning”、“cardiac”和“image segmentation”，并限定在标题或摘要中进行搜索。此外，还通过MICCAI、ISBI和EMBC等会议的论文集来搜索相关的文献。筛选过程中，将那些主要不关注分割问题的论文排除在外。最后一次更新检索的时间是2019年8月1日。</p>
+
+<h3 id="8阅读体会总结">8.阅读体会总结</h3>
+
+<p>从这篇review的MRI部分中，我清晰的了解了不同心脏分割工作的任务分类；全面的了解了2019年之前心室分割常用的方法；了解了心脏分割所面临的挑战；给论文写作中的研究意义攥写提供了指导方向。 《Deep Learning Based Cardiac MRI Segmentation: Do We Need Experts?》 实验设计</p>
+
+<p>（1）简介 论文于2021年发表于Algorithms期刊。论文探讨了使用非专家标注来训练深度学习模型在心脏磁共振图像分割中的实用性。通过与非医学专业人员标注的数据进行比较研究，探讨了医学专家的必要性。通过将依赖非专家标注的问题定义为噪声数据，研究人员成功在两个公共数据集上取得了良好的性能，其中一个数据集用于模拟一个超出分布范围的数据集。研究发现，无论是使用U-Net、Attention U-Net还是ENet这样的容量不同的深度神经网络，使用经过良好训练的非专家标注的数据进行训练，其性能与专家标注的数据相当。此外，在超出分布范围的数据集上，非专家标注和专家标注的网络性能差距比训练数据集上的差距要小。论文表示未来的研究可以集中在大规模医学数据集并针对其噪声特点进行相应的方法优化。</p>
+
+<p>（2）实验使用数据集 论文中使用了两个数据集：ACDC和M&amp;M。在ACDC数据集上，除了官方真值，额外制作了两个由非临床专家进行手工标记的标记值。论文使用一组固定的超参数、ACDC的训练集搭配三组不同的标记值训练分割模型。在测试阶段，论文使用包含50个患者的ACDC的测试集与150个患者的M&amp;M的训练集进行模型分割新能评估，M&amp;M被用于模拟一个不同分布的数据集。</p>
+
+<p>（3）实验设置</p>
+
+<p>     a)对比实验：专家、非专家标记在训练中对网络性能的影响</p>
+
+<p>        i.表1展示了左心室的分割情况，将非专家标注（Non-Expert 1和Non-Expert 2）训练的网络与专家标注训练的网络进行量化比较，且对非专家标记训练网络设置了不同的损失函数组合，结果发现二者性能几乎持平，且这一结果不受损失函数影响。</p>
+
+<p>         ii.表2展示了心肌的分割情况，结果发现非专家1制作的标记值训练出的网络性能差于专家，但非专家2制作的标记值训练出的网络新能与专家持平。</p>
+
+<p>         iii.表3展示了右心室的分割情况，结果发现非专家1制作的标记值训练出的网络性能差于专家。此外，可以发现MAE+Dice损失函数改善了两位非专家的结果。</p>
+
+<p>         iv.三个表格都展示了网络在M&amp;M数据集上的分割表现，并在图2中展示了M&amp;M数据集的分割可视化结果。论文发现所有网络对于M&amp;M的分割性能都表现出了不稳定性，在某些情况下，输出分割完全退化。M&amp;M数据集与ACDC的采集设置不同。在这种情况下，论文发现专家与非专家之间的性能差距大大减小。此外，无论使用哪种分割网络（U-Net、Attention U-Net或ENet），不同专业度标记值之间的分割性能差异是相似的，Attention U-Net整体上表现最好。</p>
+
+<p>     b)进一步分析网络对心脏不同部位的分割性能 图3展示了不同专业标记值对于网络在基底部、中部和心尖部三个不同心脏部位的分割性能的影响，结果发现非专家和专家标记之间的差异主要集中在心脏的两个端部。性能差距在心尖部更为显著。 c)观察在不同病理分组中不同专业度标记值对网络性能的影响 图4展示了不同专业度标记值训练出的网络在不同疾病组内分割三个部位的Dice表现。结果发现不同专业度标记值和疾病组之间的Dice分数相对相似。</p>
+
+<p>（4）阅读体会总结</p>
+
+<p>该论文不针对方法进行创新，在实验设计上非常出色，定量、定性比较充分，完整展示了不同专业度标记值对于网络训练的影响，对我们的实验设计非常有参考价值。</p>
+</body></html>
